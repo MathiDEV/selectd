@@ -61,9 +61,10 @@
 
 <body>
     <div id="top">
-        <span class="mdl-chip">
+        <span id="select_chip" class="mdl-chip">
             <span class="mdl-chip__text" id="selection"></span>
         </span>
+        <span id="len"></span>
     </div>
     <div id="buttons"></div>
     <div id="actions">
@@ -100,6 +101,7 @@
 
     const selection = "{SELECTION}";
     document.getElementById("selection").innerText = selection;
+    document.getElementById("len").innerText = selection.length;
     if (isMath(selection)) {
         document.getElementById("top").style.backgroundImage = "linear-gradient(81deg, rgba(164,6,6,1) 0%, rgba(210,90,90,1) 100%)"
     } else {
@@ -112,6 +114,7 @@
                 <i class="material-icons">${actions[action].icon}</i>
                 </button>`);
             elem.addEventListener("click", actions[action].action);
+            elem.addEventListener("click", () => { document.getElementById("len").innerText = document.getElementById("selection").innerText.length; });
             document.getElementById("buttons").appendChild(elem);
         }
     }
@@ -133,10 +136,12 @@
     }
 
     #top {
+        position: relative;
         padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 20px;
     }
 
     #buttons,
@@ -154,5 +159,24 @@
 
     #communicate_action {
         display: none;
+    }
+
+    #select_chip {
+        max-width: 90%;
+    }
+
+    #selection {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #len {
+        font-weight: bold;
+        padding: 0 10px;
+        position: absolute;
+        bottom: 0px;
+        right: 0;
     }
 </style>
